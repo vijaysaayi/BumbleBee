@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+	<AssemblyName>bumblebee</AssemblyName>
+    <RootNamespace>BumbleBee.CommandLineInterface</RootNamespace>
+	<PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
+  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="CommandDotNet" Version="4.1.8" />
+		<PackageReference Include="CommandDotNet.IoC.MicrosoftDependencyInjection" Version="3.0.0" />
+		<PackageReference Include="Humanizer" Version="2.13.14" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.21" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.21" />		
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Application\Application\Application.csproj" />
+	</ItemGroup>
+
+</Project>

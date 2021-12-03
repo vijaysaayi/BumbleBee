@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>Create New IMediatr Command</Title>
+            <Author>Vijay Saayi R</Author>
+            <Description>Used to create a new command in Application Layer of DDD model</Description>
+            <Shortcut>newIMediatrCmd</Shortcut>
+        </Header>
+        <Snippet>
+            <Code Language="CSharp">
+                <![CDATA[public class $commandName$Command : IRequest<$returnType$>
+                {
+                    
+                }
+
+                public class $commandName$CommandHandler : IRequestHandler<$commandName$Command, $returnType$>
+                {
+                    public async Task<$returnType$> Handle($commandName$Command request, CancellationToken cancellationToken)
+                    {
+
+                    }
+                }
+                ]]>
+            </Code>
+            <Declarations>
+                <Literal>
+                    <ID>commandName</ID>
+                    <ToolTip>Enter the name of the new Command</ToolTip>
+                    <Default>NewCommand</Default>
+                </Literal>
+                <Literal>
+                    <ID>returnType</ID>
+                    <ToolTip>Enter the Return Type</ToolTip>
+                    <Default>Unit</Default>
+                </Literal>
+            </Declarations>
+            <Imports>
+                <Import>
+                    <Namespace>MediatR;</Namespace>                    
+                </Import>
+                <Import>
+                    <Namespace>System.Threading;</Namespace>                    
+                </Import>
+                <Import>
+                    <Namespace>System.Threading.Tasks;</Namespace>                    
+                </Import>
+            </Imports>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>
