@@ -33,7 +33,8 @@ jobs:
       - name: Generate release tag
         id: tag
         run: |
-          echo "::set-output name=release_tag::v_$(date +"%Y.%m.%d")_${GITHUB_RUN_ID}"
+          runid = ${{github.run_id}}
+          echo "::set-output name=release_tag::v_$(date +"%Y.%m.%d")_$runid"
           
       - name: Build
         shell: bash
