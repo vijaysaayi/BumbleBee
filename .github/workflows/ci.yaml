@@ -41,7 +41,7 @@ jobs:
           tag=${{ steps.tag.outputs.release_tag }}
           release_name="BumbleBee-$tag-${{ matrix.target }}"
           # Build everything
-          dotnet publish src/Presentation/CommandLineInterface/CommandLineInterface.csproj --framework netcoreapp3.1 --runtime "${{ matrix.target }}" --self-contained true -c Release -o "$release_name"
+          dotnet publish src/Presentation/CommandLineInterface/CommandLineInterface.csproj --framework netcoreapp3.1 --runtime "${{ matrix.target }}" /p:PublishSingleFile=true -c Release -o "$release_name"
           # Pack files
           if [ "${{ matrix.target }}" == "win-x64" ]; then
             # Pack to zip for Windows
