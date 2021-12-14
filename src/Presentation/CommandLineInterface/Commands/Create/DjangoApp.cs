@@ -1,11 +1,10 @@
-﻿using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewAppService;
-using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan;
+﻿using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan;
+using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewBlessedAppService;
 using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
 using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AdditionalInformation;
 using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AppServiceName;
 using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
 using BumbleBee.Code.Application.AzureSDKWrappers.Update.SourceControl;
-using BumbleBee.Code.Application.ExtensionMethods;
 using CommandDotNet;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent;
@@ -44,7 +43,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
                     name = AnsiConsole.Ask<string>("Enter the [green]name[/] of App Service?");
                 }
 
-                var additionalInfo = await _mediator.Send(new GetAdditionalInformationCommand());
+                //var additionalInfo = await _mediator.Send(new GetAdditionalInformationCommand());
                 _appName = await _mediator.Send(new GetAppServiceNameCommand(name));
                 _region = await _mediator.Send(new GetRegionNameCommand());
 
@@ -83,7 +82,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
                                              ctx.SpinnerStyle(Style.Parse("green"));
                                              await UpdateSourceControl(repositoryUrl);
                                              Console.WriteLine();
-                                             AnsiConsole.MarkupLine($"You can browse to the app using [green]https://{appService.DefaultHostName}[/]");                                             
+                                             AnsiConsole.MarkupLine($"You can browse to the app using [green]https://{appService.DefaultHostName}[/]");
                                          }
                                      }
                                  }
@@ -117,7 +116,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
 
         private async Task<IWebApp> CreateNewAppService(IAppServicePlan appServicePlan)
         {
-            return await _mediator.Send(new CreateNewAppServiceCommand()
+            return await _mediator.Send(new CreateNewAppServiceWithBlessedImageCommand()
             {
                 ResourceGroupName = _resourceGroupName,
                 AppServicePlan = appServicePlan,

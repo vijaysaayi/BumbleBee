@@ -6,6 +6,7 @@
 	<AssemblyName>bumblebee</AssemblyName>
     <RootNamespace>BumbleBee.CommandLineInterface</RootNamespace>
 	<PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
+	  <IncludeSymbolsInSingleFile>true</IncludeSymbolsInSingleFile>
   </PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="CommandDotNet" Version="4.1.8" />
@@ -13,10 +14,16 @@
 		<PackageReference Include="Humanizer" Version="2.13.14" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.21" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.21" />		
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.21" />
+		<PackageReference Include="RandomNameGeneratorLibrary" Version="1.2.2" />		
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Application\Application\Application.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="buildpacktask.yml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

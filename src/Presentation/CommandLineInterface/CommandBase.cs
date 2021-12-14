@@ -1,4 +1,5 @@
 ﻿using BumbleBee.CommandLineInterface.Commands.Create;
+using BumbleBee.CommandLineInterface.Commands.Deploy;
 using BumbleBee.CommandLineInterface.Services;
 using CommandDotNet;
 
@@ -31,5 +32,8 @@ namespace BumbleBee.CommandLineInterface
 
         [SubCommand]
         public CreateCommand Create { get; set; } = null!;
+
+        [SubCommand]
+        public DeployCommand Deploy { get; set; } = null!;
     }
 }

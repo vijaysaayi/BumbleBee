@@ -2,9 +2,9 @@
 using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Create.NewAppService
+namespace BumbleBee.Code.Application.AzureSDKWrappers.Create.NewBlessedAppService
 {
-    public class CreateNewAppServiceCommand : IRequest<IWebApp>
+    public class CreateNewAppServiceWithBlessedImageCommand : IRequest<IWebApp>
     {
         public string ResourceGroupName { get; set; }
 

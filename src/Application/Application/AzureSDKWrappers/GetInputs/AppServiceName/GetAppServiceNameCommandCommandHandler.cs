@@ -1,4 +1,5 @@
 ﻿using BumbleBee.Application.AzureSDKWrappers.Validation;
+using BumbleBee.Code.Application.ExtensionMethods;
 using BumbleBee.Code.Application.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -14,8 +15,7 @@ namespace BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AppServiceName
     {
         private readonly IMediator _mediator;
         private readonly ILogger<GetAppServiceNameCommandCommandHandler> _logger;
-        private readonly ProgressIndicator _progressIndicator;
-        private static Random _random = new Random();
+        private readonly ProgressIndicator _progressIndicator;        
 
         public GetAppServiceNameCommandCommandHandler(IMediator mediator, ILogger<GetAppServiceNameCommandCommandHandler> logger)
         {
@@ -24,13 +24,7 @@ namespace BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AppServiceName
             //_progressIndicator = new ProgressIndicator(500);
         }
 
-        private static string RandomString(int length)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[_random.Next(s.Length)]).ToArray());
-        }
-
+        
         public async Task<string> Handle(GetAppServiceNameCommand request, CancellationToken cancellationToken)
         {
             //_progressIndicator.Start();
@@ -55,7 +49,7 @@ namespace BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AppServiceName
                         throw new Exception("Please execute the command again with a unique name");
                     }
 
-                    request.AppServiceNameProvided = $"{request.AppServiceNameProvided}-{RandomString(4)}";
+                    request.AppServiceNameProvided = $"{request.AppServiceNameProvided}-{StringExtensionMethods.RandomString(4)}";
                     AnsiConsole.MarkupLine($"Selecting app name as [green]{request.AppServiceNameProvided}[/]");
                     Console.WriteLine();
                     return request.AppServiceNameProvided;

@@ -1,0 +1,5 @@
+steps:
+  - cmd: mcr.microsoft.com/oryx/pack:stable build {registry_url}/{image_name} --builder {builder_name}  --env REGISTRY_NAME={registry_url} -p .
+    timeout: 28800
+  - push: ["{registry_url}/{image_name}"]
+    timeout: 1800

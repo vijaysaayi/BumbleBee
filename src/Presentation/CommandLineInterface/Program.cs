@@ -73,7 +73,7 @@ namespace BumbleBee.CommandLineInterface
                                              .Build();
         }
 
-        public static AppRunner GetAppRunner(NameValueCollection appConfigSettings = null, string appNameForTests = "deepsearch")
+        public static AppRunner GetAppRunner(NameValueCollection appConfigSettings = null, string appNameForTests = "bumblebee")
         {
             appConfigSettings ??= new NameValueCollection();
             return new AppRunner<CommandBase>(appNameForTests is null ? null : new AppSettings { Help = { UsageAppName = appNameForTests } })

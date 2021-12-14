@@ -7,7 +7,7 @@ using BumbleBee.Code.Application.Services.Interfaces;
 using Microsoft.Azure.Management.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Extensions.Logging;
-using Spectre.Console;
+using Sharprompt;
 using System;
 using System.Text;
 
@@ -44,7 +44,7 @@ namespace BumbleBee.Code.Application.Services
                 AnsiConsoleExtensionMethods.Display("Sign in was successful. Attempting to get an access token to perform management operations");
                 AccessToken = defaultCredential.GetToken(new TokenRequestContext(
                     new[] { "https://management.azure.com/.default" })
-                );  
+                );
                 AnsiConsoleExtensionMethods.Display("Successfully obtained a token");
                 var defaultTokenCredentials = new Microsoft.Rest.TokenCredentials(AccessToken.Token);
                 var azureCredentials = new Microsoft.Azure.Management.ResourceManager.Fluent.Authentication.AzureCredentials(defaultTokenCredentials, defaultTokenCredentials, null, AzureEnvironment.AzureGlobalCloud);
@@ -54,7 +54,8 @@ namespace BumbleBee.Code.Application.Services
                 Subscription = AzureArmClient.GetDefaultSubscription();
 
                 AnsiConsoleExtensionMethods.Display("Successfully established connectivity with Azure");
-                AnsiConsoleExtensionMethods.Display("", disableCheckBox:true);
+                AnsiConsoleExtensionMethods.Display("", disableCheckBox: true);
+
                 return true;
             }
             catch (Exception ex)
