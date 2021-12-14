@@ -1,2 +1,2 @@
 # Run the following command
-bumblebee deploy
+bumblebee deploy -name "name of app"
