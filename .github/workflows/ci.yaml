@@ -1,9 +1,9 @@
 name: Publish
 
 on:
-  release:
-    types: [published]
-
+  push:
+    branches: [ master ]
+    
 jobs:
   release:
     name: Release
@@ -21,7 +21,7 @@ jobs:
             os: macos-latest
             target: osx-x64
     runs-on: ${{ matrix.os }}
-    steps:
+    steps:    
       - name: Checkout
         uses: actions/checkout@v1
 
@@ -34,7 +34,7 @@ jobs:
         shell: bash
         run: |
           tag=$(git describe --tags --abbrev=0)
-          release_name="App-$tag-${{ matrix.target }}"
+          release_name="BumbleBee-$tag-${{ matrix.target }}"
           # Build everything
           dotnet publish src/Presentation/CommandLineInterface/CommandLineInterface.csproj --framework netcoreapp3.1 --runtime "${{ matrix.target }}" -c Release -o "$release_name"
           # Pack files
