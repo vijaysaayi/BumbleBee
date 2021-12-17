@@ -33,13 +33,13 @@ namespace BumbleBee.CommandLineInterface.Services
             PrintSessionInit();
 
             bool pendingNewLine = false;
-            void Write(string? value = null)
+            void Write(string value = null)
             {
                 console!.Write(value);
                 pendingNewLine = true;
             }
 
-            void WriteLine(string? value = null)
+            void WriteLine(string value = null)
             {
                 console!.WriteLine(value);
                 pendingNewLine = false;

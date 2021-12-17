@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
 using System;
 using System.Collections.Specialized;
 using System.IO;
@@ -40,7 +39,7 @@ namespace BumbleBee.CommandLineInterface
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
             appRunner.UseMicrosoftDependencyInjection(serviceProvider);
-
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             return appRunner.Run(args);
         }
 
@@ -80,7 +79,7 @@ namespace BumbleBee.CommandLineInterface
                 .UseDefaultMiddleware(excludePrompting: true, excludeVersionMiddleware: true)
                 .UseNameCasing(Case.KebabCase)
                 .UseInteractiveMode("BumbleBee")
-                .UseDefaultsFromAppSetting(appConfigSettings, includeNamingConventions: true)
+                .UseDefaultsFromAppSetting(appConfigSettings, includeNamingConventions: true)                
                 .UseErrorHandler((context, ex) =>
                 {
                     DisplayMessage(ex.Message, true);

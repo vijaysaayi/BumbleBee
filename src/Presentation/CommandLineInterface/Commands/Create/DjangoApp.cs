@@ -1,7 +1,6 @@
 ﻿using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan;
 using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewBlessedAppService;
 using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
-using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AdditionalInformation;
 using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AppServiceName;
 using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
 using BumbleBee.Code.Application.AzureSDKWrappers.Update.SourceControl;
@@ -13,6 +12,7 @@ using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BumbleBee.CommandLineInterface.Commands.Create
@@ -26,6 +26,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
         private Region _region;
         private string _resourceGroupName;
         private string _appServicePlanName;
+        private CancellationToken _cancellationToken;
 
         public DjangoApp(IMediator mediator, ILogger<DjangoApp> logger)
         {
@@ -34,18 +35,20 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
         }
 
         [DefaultMethod]
-        public async Task NewApp([Option(LongName = "name", ShortName = "n", Description = "Name of the App Service")] string name)
+        public async Task NewApp([Option(LongName = "name", ShortName = "n", Description = "Name of the App Service")] string name, CancellationToken cancellationToken)
         {
             try
             {
+                _cancellationToken = cancellationToken;
+
                 if (string.IsNullOrWhiteSpace(name))
                 {
                     name = AnsiConsole.Ask<string>("Enter the [green]name[/] of App Service?");
                 }
 
                 //var additionalInfo = await _mediator.Send(new GetAdditionalInformationCommand());
-                _appName = await _mediator.Send(new GetAppServiceNameCommand(name));
-                _region = await _mediator.Send(new GetRegionNameCommand());
+                _appName = await _mediator.Send(new GetAppServiceNameCommand(name), _cancellationToken);
+                _region = await _mediator.Send(new GetRegionNameCommand(), _cancellationToken);
 
                 await AnsiConsole.Status()
                              .StartAsync("Processing...", async ctx =>
@@ -90,13 +93,11 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
 
             return;
-            //try
-            //{
-            //
         }
 
         private async Task UpdateSourceControl(string repositoryUrl)
@@ -111,7 +112,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
                     RepoUrl = repositoryUrl,
                     Branch = "main"
                 }
-            });
+            }, _cancellationToken);
         }
 
         private async Task<IWebApp> CreateNewAppService(IAppServicePlan appServicePlan)
@@ -122,7 +123,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
                 AppServicePlan = appServicePlan,
                 AppServiceName = _appName,
                 AzureRegion = _region
-            });
+            }, _cancellationToken);
         }
 
         private async Task<IAppServicePlan> CreateNewAppServicePlan()
@@ -132,7 +133,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
                 ResourceGroupName = _resourceGroupName,
                 AppServicePlanName = _appServicePlanName,
                 AzureRegion = _region,
-            });
+            }, _cancellationToken);
         }
 
         private async Task<bool> CreateResourceGroup()
@@ -141,7 +142,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
             {
                 ResourceGroupName = _resourceGroupName,
                 AzureRegion = _region,
-            });
+            }, _cancellationToken);
         }
     }
 }

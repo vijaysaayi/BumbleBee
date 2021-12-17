@@ -30,6 +30,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Deploy
         private Region _region;
         private string _webappName;
         private string _registryName;
+        private CancellationToken _cancellationToken;
 
         public DeployCommand(IMediator mediator)
         {
@@ -40,9 +41,11 @@ namespace BumbleBee.CommandLineInterface.Commands.Deploy
         public async Task NewAppService(
             [Option(LongName = "name", ShortName = "n", Description = "Name of the App Service")] string webappName,
             [Option(LongName = "respository", ShortName = "r", Description = "Url of repository")] string repositoryUrl,
-            [Option(LongName = "buildpack", ShortName = "b", Description = "Buildpack")] string buildpack
+            [Option(LongName = "buildpack", ShortName = "b", Description = "Buildpack")] string buildpack,
+            CancellationToken cancellationToken
         )
         {
+            _cancellationToken = cancellationToken;
             if (string.IsNullOrWhiteSpace(webappName))
             {
                 webappName = AnsiConsole.Ask<string>("Enter the [green]name[/] of App Service?");
@@ -53,7 +56,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Deploy
             AnsiConsole.WriteLine(_registryName);
             _resourceGroupName = $"{_webappName}-rsg";
             _appServicePlanName = $"{_webappName}-asp";
-            _region = await _mediator.Send(new GetRegionNameCommand());
+            _region = await _mediator.Send(new GetRegionNameCommand(), _cancellationToken);
 
             var isRSGCreateSuccessful = await CreateResourceGroup();
             if (isRSGCreateSuccessful)
@@ -143,7 +146,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Deploy
                 ImageAndTagName = $"{registry.Name}.azurecr.io/{_imageName}",
                 AcrCredentials = acrCredentials,
                 AzureRegion = _region
-            });
+            }, _cancellationToken);
         }
 
         private async Task<IRegistryTaskRun> ScheduleBuildPackTask(string registryUrl, string repositoryUrl, string buildpack)
@@ -166,7 +169,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Deploy
                 ImageName = _imageName,
                 SourceLocation = repositoryUrl,
                 RegistryUrl = registryUrl
-            });
+            }, _cancellationToken);
         }
 
         private async Task<IRegistry> CreateNewAzureContainerRegistry()
@@ -176,7 +179,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Deploy
                 AzureContainerRegistryName = _registryName,
                 ResourceGroupName = _resourceGroupName,
                 Location = _region
-            });
+            }, _cancellationToken);
         }
 
         private async Task<IAppServicePlan> CreateNewAppServicePlan()
@@ -186,7 +189,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Deploy
                 ResourceGroupName = _resourceGroupName,
                 AppServicePlanName = _appServicePlanName,
                 AzureRegion = _region,
-            });
+            }, _cancellationToken);
         }
 
         private async Task<bool> CreateResourceGroup()
@@ -195,7 +198,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Deploy
             {
                 ResourceGroupName = _resourceGroupName,
                 AzureRegion = _region,
-            });
+            }, _cancellationToken);
         }
     }
 }

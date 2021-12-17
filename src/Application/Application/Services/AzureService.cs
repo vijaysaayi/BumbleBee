@@ -7,9 +7,9 @@ using BumbleBee.Code.Application.Services.Interfaces;
 using Microsoft.Azure.Management.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Extensions.Logging;
-using Sharprompt;
 using System;
 using System.Text;
+using System.Threading;
 
 namespace BumbleBee.Code.Application.Services
 {
@@ -26,7 +26,7 @@ namespace BumbleBee.Code.Application.Services
 
         public AzureService(ILogger<AzureService> logger)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));            
             if (!EstablishConnection())
             {
                 throw new Exception("Error connecting to Azure");
@@ -53,7 +53,11 @@ namespace BumbleBee.Code.Application.Services
                 AzureArmClient = new ArmClient(new DefaultAzureCredential(includeInteractiveCredentials: true));
                 Subscription = AzureArmClient.GetDefaultSubscription();
 
+                var subscriptions = AzureArmClient.GetSubscriptions();
+
                 AnsiConsoleExtensionMethods.Display("Successfully established connectivity with Azure");
+                
+                AnsiConsoleExtensionMethods.Display($"Resources would be deployed in default subscription {Subscription.Data.SubscriptionGuid} ({Azure.SubscriptionId})");
                 AnsiConsoleExtensionMethods.Display("", disableCheckBox: true);
 
                 return true;

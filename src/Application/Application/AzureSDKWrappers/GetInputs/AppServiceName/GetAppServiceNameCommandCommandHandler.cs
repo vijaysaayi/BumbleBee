@@ -15,25 +15,21 @@ namespace BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AppServiceName
     {
         private readonly IMediator _mediator;
         private readonly ILogger<GetAppServiceNameCommandCommandHandler> _logger;
-        private readonly ProgressIndicator _progressIndicator;        
-
+        
         public GetAppServiceNameCommandCommandHandler(IMediator mediator, ILogger<GetAppServiceNameCommandCommandHandler> logger)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            //_progressIndicator = new ProgressIndicator(500);
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));            
         }
 
         
         public async Task<string> Handle(GetAppServiceNameCommand request, CancellationToken cancellationToken)
         {
-            //_progressIndicator.Start();
             var appNameAvailability = await _mediator.Send(new CheckIfAppNameExistsCommand()
             {
                 WebAppName = request.AppServiceNameProvided
             });
-            //_progressIndicator.Stop();
-
+            
             if (appNameAvailability != null)
             {
                 if (appNameAvailability.NameAvailable)

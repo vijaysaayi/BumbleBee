@@ -48,8 +48,7 @@ namespace BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AdditionalInform
             {
                 command = Prompt.Select("", _acceptedCommands); ;
                 int length = command.Length + 4;
-                int lines = 1;
-
+                
                 string message = "";
                 switch (command)
                 {

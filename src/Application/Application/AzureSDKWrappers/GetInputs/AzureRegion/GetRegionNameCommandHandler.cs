@@ -21,9 +21,10 @@ namespace BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion
         {
             var availableRegions = Region.Values;
             Console.OutputEncoding = System.Text.Encoding.ASCII;
-            var selectedRegion = Prompt.Select("Please select the region where you want the App to be deployed ",
+            var selectedRegion = Prompt.Select($"Please select the region where you want {request.ResourceName} to be deployed ",
                                                items: availableRegions,
-                                               pageSize: 10);
+                                               pageSize: 10,
+                                               defaultValue: request.DefaultRegion);
             //var selectedRegion = AnsiConsole.Prompt(
             //    new SelectionPrompt<Region>()
             //    .Title("Please select the region where you want the App to be deployed ")

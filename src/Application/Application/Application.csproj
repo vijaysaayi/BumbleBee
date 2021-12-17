@@ -14,6 +14,7 @@
 		<PackageReference Include="Azure.Identity" Version="1.5.0" />
 		<PackageReference Include="Azure.ResourceManager.Resources" Version="1.0.0-preview.1" />
 		<PackageReference Include="Microsoft.Azure.Management.Fluent" Version="1.38.0" />
+		<PackageReference Include="Microsoft.Azure.Management.PostgreSQL" Version="2.0.0" />
 		<PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="3.13.1-preview" />
 		<PackageReference Include="Microsoft.Azure.Management.Websites" Version="3.1.2" />
 		<PackageReference Include="Sharprompt" Version="2.3.7" />

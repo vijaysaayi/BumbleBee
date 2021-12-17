@@ -5,5 +5,13 @@ namespace BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion
 {
     public class GetRegionNameCommand : IRequest<Region>
     {
+        public Region DefaultRegion { get; set; }
+
+        public string ResourceName { get; set; }
+
+        public GetRegionNameCommand()
+        {
+            ResourceName = "app";
+        }
     }
 }

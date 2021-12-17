@@ -12,6 +12,7 @@ using RandomNameGeneratorLibrary;
 using Spectre.Console;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BumbleBee.CommandLineInterface.Commands.Create
@@ -23,6 +24,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
     {
         private readonly IMediator _mediator;
         private Region _region;
+        private CancellationToken _cancellationToken;
         private string _appName;
         private string _resourceGroupName;
         private string _appServicePlanName;
@@ -39,16 +41,16 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
         public DjangoApp DjangoApp { get; set; } = null!;
 
         [DefaultMethod]
-        public async Task CreateNewWebApp()
+        public async Task CreateNewWebApp(CancellationToken cancellationToken)
         {
             _appName = GetRandomName();
-            AnsiConsoleExtensionMethods.Display(_appName);
-            _region = await _mediator.Send(new GetRegionNameCommand());
-
+            _region = await _mediator.Send(new GetRegionNameCommand(),
+                cancellationToken);
+            _cancellationToken = cancellationToken;
             await AnsiConsole.Status()
                              .StartAsync("Processing...", async ctx =>
                              {
-                                 _resourceGroupName = $"bee-{_appName}-rsg";
+                                 _resourceGroupName = $"{_appName}-rsg";
                                  _appServicePlanName = $"{_appName}-asp";
 
                                  AnsiConsole.MarkupLine($"Creating a new app [green]{_appName}[/] in [green]{_region}[/] region..");
@@ -105,7 +107,8 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
                                          }
                                      }
                                  }
-                             });
+                             })
+                             ;
         }
 
         private string GetRandomName()
@@ -128,7 +131,8 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
                 AppServicePlan = appServicePlan,
                 AppServiceName = _appName,
                 AzureRegion = _region
-            });
+            },
+            _cancellationToken);
         }
 
         private async Task<IAppServicePlan> CreateNewAppServicePlan()
@@ -138,7 +142,8 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
                 ResourceGroupName = _resourceGroupName,
                 AppServicePlanName = _appServicePlanName,
                 AzureRegion = _region,
-            });
+            },
+            _cancellationToken);
         }
 
         private async Task<bool> CreateResourceGroup()
@@ -147,7 +152,8 @@ namespace BumbleBee.CommandLineInterface.Commands.Create
             {
                 ResourceGroupName = _resourceGroupName,
                 AzureRegion = _region,
-            });
+            },
+            _cancellationToken);
         }
     }
 }

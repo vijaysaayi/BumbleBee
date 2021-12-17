@@ -1,5 +1,4 @@
-﻿using BumbleBee.Code.Application.Services;
-using BumbleBee.Code.Application.Services.Interfaces;
+﻿using BumbleBee.Code.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.Management.Fluent;
@@ -14,22 +13,18 @@ namespace BumbleBee.Code.Application.AzureSDKWrappers.Update.SourceControl
     {
         private readonly ILogger<UpdateSourceControlCommand> _logger;
         private readonly IAzure _azure;
-        private readonly ProgressIndicator _progressIndicator;
 
         public UpdateSourceControlCommandHandler(IAzureService azureService, ILogger<UpdateSourceControlCommand> logger)
         {
             _logger = logger;
             _azure = azureService.Azure;
-            //_progressIndicator = new ProgressIndicator(500);
         }
 
         public async Task<bool> Handle(UpdateSourceControlCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                //_progressIndicator.Start();
                 await _azure.WebApps.Inner.CreateOrUpdateSourceControlAsync(request.ResourceGroupName, request.AppServiceName, request.SiteSourceControlInner);
-                //_progressIndicator.Stop();
                 _logger.LogInformation($"Successfully deployed code for App Service- '{request.AppServiceName}'");
                 AnsiConsole.MarkupLine($"Successfully deployed code for App Service- '{request.AppServiceName}'");
                 AnsiConsole.MarkupLine($"");

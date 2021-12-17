@@ -17,7 +17,8 @@ namespace BumbleBee.Code.Application.ExtensionMethods
                 AnsiConsole.MarkupLine(message);
                 return;
             }
-            AnsiConsole.MarkupLine(Emoji.Known.CheckMark + " " + message);
+            var emoji = Emoji.Known.CheckMark;
+            AnsiConsole.MarkupLine($"[green]{emoji}[/] {message}");
         }
     }
 }

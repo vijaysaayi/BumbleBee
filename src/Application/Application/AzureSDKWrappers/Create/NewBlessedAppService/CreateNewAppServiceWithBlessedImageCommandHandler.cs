@@ -1,5 +1,4 @@
 ﻿using BumbleBee.Code.Application.ExtensionMethods;
-using BumbleBee.Code.Application.Services;
 using BumbleBee.Code.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent;
@@ -14,8 +13,6 @@ namespace BumbleBee.Code.Application.AzureSDKWrappers.Create.NewBlessedAppServic
     {
         private readonly IAzure _azure;
         private readonly ILogger<CreateNewAppServiceWithBlessedImageCommandHandler> _logger;
-        private readonly ProgressIndicator _progressIndicator;
-        private CreateNewAppServiceWithBlessedImageCommand _request;
 
         public CreateNewAppServiceWithBlessedImageCommandHandler(IAzureService azureService, ILogger<CreateNewAppServiceWithBlessedImageCommandHandler> logger)
         {
