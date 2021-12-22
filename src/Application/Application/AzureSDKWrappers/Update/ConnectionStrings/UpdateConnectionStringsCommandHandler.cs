@@ -7,7 +7,7 @@ using Microsoft.Rest.Azure;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.CommandLineInterface.Commands.Update.ConnectionStrings
+namespace BumbleBee.Code.Application.AzureSDKWrappers.Update.ConnectionStrings
 {
     public class UpdateConnectionStringsCommandHandler : IRequestHandler<UpdateConnectionStringsCommand, AzureOperationResponse<ConnectionStringDictionaryInner>>
     {

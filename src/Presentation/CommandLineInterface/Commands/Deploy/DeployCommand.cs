@@ -41,7 +41,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Deploy
         public async Task NewAppService(
             [Option(LongName = "name", ShortName = "n", Description = "Name of the App Service")] string webappName,
             [Option(LongName = "respository", ShortName = "r", Description = "Url of repository")] string repositoryUrl,
-            [Option(LongName = "buildpack", ShortName = "b", Description = "Buildpack")] string buildpack,
+            [Option(LongName = "builder", ShortName = "b", Description = "builder")] string builder,
             CancellationToken cancellationToken
         )
         {
@@ -66,7 +66,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Deploy
                 if (registry != null)
                 {
                     AnsiConsole.WriteLine("Scheduling ACR task");
-                    var buildTaskJob = await ScheduleBuildPackTask(registry.LoginServerUrl, repositoryUrl, buildpack);
+                    var buildTaskJob = await ScheduleBuildPackTask(registry.LoginServerUrl, repositoryUrl, builder);
 
                     if (buildTaskJob != null)
                     {
@@ -149,23 +149,23 @@ namespace BumbleBee.CommandLineInterface.Commands.Deploy
             }, _cancellationToken);
         }
 
-        private async Task<IRegistryTaskRun> ScheduleBuildPackTask(string registryUrl, string repositoryUrl, string buildpack)
+        private async Task<IRegistryTaskRun> ScheduleBuildPackTask(string registryUrl, string repositoryUrl, string builder)
         {
             if (string.IsNullOrWhiteSpace(repositoryUrl))
             {
                 repositoryUrl = AnsiConsole.Ask<string>("Enter the [green]url[/] of Github repository :");
             }
 
-            if (string.IsNullOrWhiteSpace(buildpack))
+            if (string.IsNullOrWhiteSpace(builder))
             {
-                buildpack = AnsiConsole.Ask<string>("Enter the [green]name[/] of buildpack (eg. heroku/buildpacks:18) :");
+                builder = AnsiConsole.Ask<string>("Enter the [green]name[/] of builder :");
             }
 
             return await _mediator.Send(new ScheduleACRBuildpackTaskCommand()
             {
                 RegistryName = _registryName,
                 ResourceGroupName = _resourceGroupName,
-                BuilderName = buildpack,
+                BuilderName = builder,
                 ImageName = _imageName,
                 SourceLocation = repositoryUrl,
                 RegistryUrl = registryUrl

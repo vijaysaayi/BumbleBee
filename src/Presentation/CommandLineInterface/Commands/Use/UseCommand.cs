@@ -3,9 +3,9 @@ using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewSqlServer;
 using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewStorageAccount;
 using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
 using BumbleBee.Code.Application.AzureSDKWrappers.List.ResourceGroup;
+using BumbleBee.Code.Application.AzureSDKWrappers.Update.ConnectionStrings;
 using BumbleBee.Code.Application.AzureSDKWrappers.Validation.AppServiceExists;
 using BumbleBee.Code.Application.ExtensionMethods;
-using BumbleBee.CommandLineInterface.Commands.Update.ConnectionStrings;
 using CommandDotNet;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent;
@@ -89,7 +89,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Use
                 ResourceName = resourceType.ToString()
             });
             _resourceGroupName ??= $"{_webappName}-rsg";
-                        
+
             var isRSGCreateSuccessful = await CreateResourceGroup();
             if (isRSGCreateSuccessful)
             {
@@ -121,7 +121,7 @@ namespace BumbleBee.CommandLineInterface.Commands.Use
 
                     // Update the status and spinner
                     ctx.Status("Create a new SQL server and Database");
-                    
+
                     var sqlServerName = _webappName;
                     sqlServerName = sqlServerName.ToLowerInvariant().Trim().Replace("-", "");
                     string databaseName = $"{sqlServerName}db";
