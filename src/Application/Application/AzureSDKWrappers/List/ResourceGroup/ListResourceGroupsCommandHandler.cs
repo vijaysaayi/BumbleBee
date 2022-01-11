@@ -1,4 +1,4 @@
-﻿using BumbleBee.Code.Application.Services.Interfaces;
+﻿using Penguin.Code.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.Azure.Management.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.List.ResourceGroup
+namespace Penguin.Code.Application.AzureSDKWrappers.List.ResourceGroup
 {
     public class ListResourceGroupsCommandHandler : IRequestHandler<ListResourceGroupsCommand, List<string>>
     {

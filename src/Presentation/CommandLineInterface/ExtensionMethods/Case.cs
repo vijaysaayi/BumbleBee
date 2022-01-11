@@ -1,4 +1,4 @@
-﻿namespace BumbleBee.CommandLineInterface.ExtensionMethods
+﻿namespace Penguin.CommandLineInterface.ExtensionMethods
 {
     public enum Case
     {

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Create.NewResourceGroup
+namespace Penguin.Code.Application.AzureSDKWrappers.Create.NewResourceGroup
 {
     public class CreateNewResourceGroupCommand : IRequest<bool>
     {

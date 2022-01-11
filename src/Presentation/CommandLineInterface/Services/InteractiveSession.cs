@@ -4,7 +4,7 @@ using CommandDotNet.Tokens;
 using System;
 using System.Linq;
 
-namespace BumbleBee.CommandLineInterface.Services
+namespace Penguin.CommandLineInterface.Services
 {
     public class InteractiveSession
     {

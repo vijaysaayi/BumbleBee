@@ -1,10 +1,10 @@
-﻿using BumbleBee.CommandLineInterface.Commands.Create;
-using BumbleBee.CommandLineInterface.Commands.Deploy;
-using BumbleBee.CommandLineInterface.Commands.Use;
-using BumbleBee.CommandLineInterface.Services;
+﻿using Penguin.CommandLineInterface.Commands.Create;
+using Penguin.CommandLineInterface.Commands.Deploy;
+using Penguin.CommandLineInterface.Commands.Use;
+using Penguin.CommandLineInterface.Services;
 using CommandDotNet;
 
-namespace BumbleBee.CommandLineInterface
+namespace Penguin.CommandLineInterface
 {
     [Command(
        ExtendedHelpText = "Microsoft Corporation")]

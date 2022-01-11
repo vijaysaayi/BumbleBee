@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.ACRScheduledRunStatus
+namespace Penguin.Code.Application.AzureSDKWrappers.GetInputs.ACRScheduledRunStatus
 {
     public class GetACRScheduledRunStatusRequest : IRequest<string>
     {

@@ -1,5 +1,5 @@
-﻿using BumbleBee.Code.Application.ExtensionMethods;
-using BumbleBee.Code.Application.Services.Interfaces;
+﻿using Penguin.Code.Application.ExtensionMethods;
+using Penguin.Code.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.Azure.Management.Fluent;
 using Microsoft.Azure.Management.Sql.Fluent;
@@ -7,7 +7,7 @@ using Microsoft.Azure.Management.Sql.Fluent.Models;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Create.NewSqlServer
+namespace Penguin.Code.Application.AzureSDKWrappers.Create.NewSqlServer
 {
     public class CreateNewSqlServerCommandHandler : IRequestHandler<CreateNewSqlServerCommand, ISqlServer>
     {

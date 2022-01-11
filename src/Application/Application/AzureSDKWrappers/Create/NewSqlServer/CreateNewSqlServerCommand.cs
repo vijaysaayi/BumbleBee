@@ -2,7 +2,7 @@
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.Management.Sql.Fluent;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Create.NewSqlServer
+namespace Penguin.Code.Application.AzureSDKWrappers.Create.NewSqlServer
 {
     public class CreateNewSqlServerCommand : IRequest<ISqlServer>
     {

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace BumbleBee.Application.AzureSDKWrappers.Validation
+namespace Penguin.Application.AzureSDKWrappers.Validation
 {
     public class CheckIfAppNameExistsCommand : IRequest<CheckIfAppNameExistsResponse>
     {

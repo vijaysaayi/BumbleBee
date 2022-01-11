@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-	<RootNamespace>BumbleBee.Code.Application</RootNamespace>
+	<RootNamespace>Penguin.Code.Application</RootNamespace>
   </PropertyGroup>
 
 	<ItemGroup>

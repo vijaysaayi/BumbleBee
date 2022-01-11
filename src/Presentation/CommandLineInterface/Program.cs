@@ -1,5 +1,5 @@
-﻿using BumbleBee.Application;
-using BumbleBee.CommandLineInterface.ExtensionMethods;
+﻿using Penguin.Application;
+using Penguin.CommandLineInterface.ExtensionMethods;
 using CommandDotNet;
 using CommandDotNet.IoC.MicrosoftDependencyInjection;
 using MediatR;
@@ -12,7 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace BumbleBee.CommandLineInterface
+namespace Penguin.CommandLineInterface
 {
     internal class Program
     {
@@ -46,7 +46,7 @@ namespace BumbleBee.CommandLineInterface
         private static void AddLogger(string[] args, IServiceCollection services)
         {
             var serilogLogConfiguration = new LoggerConfiguration()
-                                            .WriteTo.File("bumblebee.log", rollingInterval: RollingInterval.Day);
+                                            .WriteTo.File("Penguin.log", rollingInterval: RollingInterval.Day);
 
             bool verboseLoggingRequired = args.Contains("[v]") || args.Contains("[verbose]");
             if (verboseLoggingRequired)
@@ -72,13 +72,13 @@ namespace BumbleBee.CommandLineInterface
                                              .Build();
         }
 
-        public static AppRunner GetAppRunner(NameValueCollection appConfigSettings = null, string appNameForTests = "bumblebee")
+        public static AppRunner GetAppRunner(NameValueCollection appConfigSettings = null, string appNameForTests = "Penguin")
         {
             appConfigSettings ??= new NameValueCollection();
             return new AppRunner<CommandBase>(appNameForTests is null ? null : new AppSettings { Help = { UsageAppName = appNameForTests } })
                 .UseDefaultMiddleware(excludePrompting: true, excludeVersionMiddleware: true)
                 .UseNameCasing(Case.KebabCase)
-                .UseInteractiveMode("BumbleBee")
+                .UseInteractiveMode("Penguin")
                 .UseDefaultsFromAppSetting(appConfigSettings, includeNamingConventions: true)                
                 .UseErrorHandler((context, ex) =>
                 {

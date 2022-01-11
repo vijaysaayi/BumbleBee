@@ -2,8 +2,8 @@
 using Azure.Identity;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Resources;
-using BumbleBee.Code.Application.ExtensionMethods;
-using BumbleBee.Code.Application.Services.Interfaces;
+using Penguin.Code.Application.ExtensionMethods;
+using Penguin.Code.Application.Services.Interfaces;
 using Microsoft.Azure.Management.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Extensions.Logging;
@@ -11,7 +11,7 @@ using System;
 using System.Text;
 using System.Threading;
 
-namespace BumbleBee.Code.Application.Services
+namespace Penguin.Code.Application.Services
 {
     public class AzureService : IAzureService
     {

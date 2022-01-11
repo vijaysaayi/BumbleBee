@@ -1,5 +1,5 @@
-﻿using BumbleBee.Code.Application.ExtensionMethods;
-using BumbleBee.Code.Application.Services.Interfaces;
+﻿using Penguin.Code.Application.ExtensionMethods;
+using Penguin.Code.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.Management.ContainerRegistry.Fluent;
@@ -7,7 +7,7 @@ using Microsoft.Azure.Management.Fluent;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Create.NewWebAppForContainers
+namespace Penguin.Code.Application.AzureSDKWrappers.Create.NewWebAppForContainers
 {
     public class CreateNewWebAppForContainersServiceCommandHandler : IRequestHandler<CreateNewWebAppForContainersServiceCommand, IWebApp>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace BumbleBee.Code.Application.Services
+namespace Penguin.Code.Application.Services
 {
     public class ProgressIndicator : IDisposable
     {

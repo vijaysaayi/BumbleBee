@@ -2,7 +2,7 @@
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.Management.Storage.Fluent;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Create.NewStorageAccount
+namespace Penguin.Code.Application.AzureSDKWrappers.Create.NewStorageAccount
 {
     public class CreateNewStorageAccountCommand : IRequest<IStorageAccount>
     {

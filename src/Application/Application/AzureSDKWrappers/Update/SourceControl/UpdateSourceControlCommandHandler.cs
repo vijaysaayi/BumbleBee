@@ -1,4 +1,4 @@
-﻿using BumbleBee.Code.Application.Services.Interfaces;
+﻿using Penguin.Code.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.Management.Fluent;
@@ -7,7 +7,7 @@ using Spectre.Console;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Update.SourceControl
+namespace Penguin.Code.Application.AzureSDKWrappers.Update.SourceControl
 {
     public class UpdateSourceControlCommandHandler : IRequestHandler<UpdateSourceControlCommand, bool>
     {

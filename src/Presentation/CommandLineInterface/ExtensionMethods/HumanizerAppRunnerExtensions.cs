@@ -1,7 +1,7 @@
 ﻿using CommandDotNet;
 using Humanizer;
 
-namespace BumbleBee.CommandLineInterface.ExtensionMethods
+namespace Penguin.CommandLineInterface.ExtensionMethods
 {
     public static class HumanizerAppRunnerExtensions
     {

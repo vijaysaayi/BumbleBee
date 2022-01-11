@@ -1,10 +1,10 @@
-﻿using BumbleBee.Code.Application.Services;
-using BumbleBee.Code.Application.Services.Interfaces;
+﻿using Penguin.Code.Application.Services;
+using Penguin.Code.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace BumbleBee.Application
+namespace Penguin.Application
 {
     public static class DependencyInjection
     {

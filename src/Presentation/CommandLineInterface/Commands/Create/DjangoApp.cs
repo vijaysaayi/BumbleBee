@@ -1,9 +1,9 @@
-﻿using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan;
-using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewBlessedAppService;
-using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
-using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AppServiceName;
-using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
-using BumbleBee.Code.Application.AzureSDKWrappers.Update.SourceControl;
+﻿using Penguin.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewBlessedAppService;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
+using Penguin.Code.Application.AzureSDKWrappers.GetInputs.AppServiceName;
+using Penguin.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
+using Penguin.Code.Application.AzureSDKWrappers.Update.SourceControl;
 using CommandDotNet;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent;
@@ -15,7 +15,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.CommandLineInterface.Commands.Create
+namespace Penguin.CommandLineInterface.Commands.Create
 {
     public class DjangoApp
     {

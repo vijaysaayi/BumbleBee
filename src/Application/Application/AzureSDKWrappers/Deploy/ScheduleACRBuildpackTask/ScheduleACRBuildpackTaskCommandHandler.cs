@@ -1,4 +1,4 @@
-﻿using BumbleBee.Code.Application.Services.Interfaces;
+﻿using Penguin.Code.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.Azure.Management.ContainerRegistry.Fluent;
 using Microsoft.Azure.Management.Fluent;
@@ -7,7 +7,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Deploy.ScheduleACRBuildpackTask
+namespace Penguin.Code.Application.AzureSDKWrappers.Deploy.ScheduleACRBuildpackTask
 {
     public class ScheduleACRBuildpackTaskCommandHandler : IRequestHandler<ScheduleACRBuildpackTaskCommand, IRegistryTaskRun>
     {

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Validation.AppServiceExists
+namespace Penguin.Code.Application.AzureSDKWrappers.Validation.AppServiceExists
 {
     public class CheckIfAppServiceExistsCommand : IRequest<IWebApp>
     {

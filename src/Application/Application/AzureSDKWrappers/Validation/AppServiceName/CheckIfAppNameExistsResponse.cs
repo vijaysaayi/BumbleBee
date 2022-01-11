@@ -1,4 +1,4 @@
-﻿namespace BumbleBee.Application.AzureSDKWrappers.Validation
+﻿namespace Penguin.Application.AzureSDKWrappers.Validation
 {
     public class CheckIfAppNameExistsResponse
     {

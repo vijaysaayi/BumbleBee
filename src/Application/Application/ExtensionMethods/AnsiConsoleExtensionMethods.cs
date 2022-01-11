@@ -1,6 +1,6 @@
 ﻿using Spectre.Console;
 
-namespace BumbleBee.Code.Application.ExtensionMethods
+namespace Penguin.Code.Application.ExtensionMethods
 {
     public static class AnsiConsoleExtensionMethods
     {

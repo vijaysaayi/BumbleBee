@@ -1,4 +1,4 @@
-﻿namespace BumbleBee.CommandLineInterface.Commands.Use
+﻿namespace Penguin.CommandLineInterface.Commands.Use
 {
     public enum ResourceTypes
     {

@@ -3,7 +3,7 @@ using Azure.ResourceManager;
 using Azure.ResourceManager.Resources;
 using Microsoft.Azure.Management.Fluent;
 
-namespace BumbleBee.Code.Application.Services.Interfaces
+namespace Penguin.Code.Application.Services.Interfaces
 {
     public interface IAzureService
     {

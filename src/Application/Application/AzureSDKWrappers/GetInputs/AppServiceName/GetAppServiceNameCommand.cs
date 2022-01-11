@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AppServiceName
+namespace Penguin.Code.Application.AzureSDKWrappers.GetInputs.AppServiceName
 {
     public class GetAppServiceNameCommand : IRequest<string>
     {

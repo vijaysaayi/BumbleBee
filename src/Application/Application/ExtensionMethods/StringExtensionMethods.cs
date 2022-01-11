@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace BumbleBee.Code.Application.ExtensionMethods
+namespace Penguin.Code.Application.ExtensionMethods
 {
     public static class StringExtensionMethods
     {

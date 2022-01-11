@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AdditionalInformation
+namespace Penguin.Code.Application.AzureSDKWrappers.GetInputs.AdditionalInformation
 {
     public class GetAdditionalInformationCommandHandler : IRequestHandler<GetAdditionalInformationCommand, AdditionalInformation>
     {

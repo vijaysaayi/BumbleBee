@@ -2,7 +2,7 @@
 using Microsoft.Azure.Management.AppService.Fluent.Models;
 using Microsoft.Rest.Azure;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Update.ConnectionStrings
+namespace Penguin.Code.Application.AzureSDKWrappers.Update.ConnectionStrings
 {
     public class UpdateConnectionStringsCommand : IRequest<AzureOperationResponse<ConnectionStringDictionaryInner>>
     {

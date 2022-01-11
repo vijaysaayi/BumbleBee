@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Azure.Management.ContainerRegistry.Fluent;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Deploy.ScheduleACRBuildpackTask
+namespace Penguin.Code.Application.AzureSDKWrappers.Deploy.ScheduleACRBuildpackTask
 {
     public class ScheduleACRBuildpackTaskCommand : IRequest<IRegistryTaskRun>
     {

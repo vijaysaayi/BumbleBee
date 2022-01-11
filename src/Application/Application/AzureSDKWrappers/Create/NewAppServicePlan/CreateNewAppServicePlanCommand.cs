@@ -2,7 +2,7 @@
 using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan
+namespace Penguin.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan
 {
     public class CreateNewAppServicePlanCommand : IRequest<IAppServicePlan>
     {

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.Collections.Generic;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AdditionalInformation
+namespace Penguin.Code.Application.AzureSDKWrappers.GetInputs.AdditionalInformation
 {
     public class AdditionalInformation
     {

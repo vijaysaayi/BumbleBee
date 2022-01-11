@@ -1,11 +1,11 @@
-﻿using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan;
-using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewAzureContainerRegistry;
-using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
-using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewWebAppForContainers;
-using BumbleBee.Code.Application.AzureSDKWrappers.Deploy.ScheduleACRBuildpackTask;
-using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.ACRScheduledRunStatus;
-using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
-using BumbleBee.Code.Application.ExtensionMethods;
+﻿using Penguin.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewAzureContainerRegistry;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewWebAppForContainers;
+using Penguin.Code.Application.AzureSDKWrappers.Deploy.ScheduleACRBuildpackTask;
+using Penguin.Code.Application.AzureSDKWrappers.GetInputs.ACRScheduledRunStatus;
+using Penguin.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
+using Penguin.Code.Application.ExtensionMethods;
 using CommandDotNet;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent;
@@ -16,7 +16,7 @@ using Spectre.Console;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.CommandLineInterface.Commands.Deploy
+namespace Penguin.CommandLineInterface.Commands.Deploy
 {
     [Command(Name = "deploy",
              Usage = "deploy [command]",

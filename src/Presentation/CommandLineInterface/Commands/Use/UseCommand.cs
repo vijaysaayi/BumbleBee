@@ -1,11 +1,11 @@
-﻿using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
-using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewSqlServer;
-using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewStorageAccount;
-using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
-using BumbleBee.Code.Application.AzureSDKWrappers.List.ResourceGroup;
-using BumbleBee.Code.Application.AzureSDKWrappers.Update.ConnectionStrings;
-using BumbleBee.Code.Application.AzureSDKWrappers.Validation.AppServiceExists;
-using BumbleBee.Code.Application.ExtensionMethods;
+﻿using Penguin.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewSqlServer;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewStorageAccount;
+using Penguin.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
+using Penguin.Code.Application.AzureSDKWrappers.List.ResourceGroup;
+using Penguin.Code.Application.AzureSDKWrappers.Update.ConnectionStrings;
+using Penguin.Code.Application.AzureSDKWrappers.Validation.AppServiceExists;
+using Penguin.Code.Application.ExtensionMethods;
 using CommandDotNet;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent;
@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BumbleBee.CommandLineInterface.Commands.Use
+namespace Penguin.CommandLineInterface.Commands.Use
 {
     [Command(Name = "use",
              Usage = "use [command]",

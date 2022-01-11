@@ -1,4 +1,4 @@
-﻿using BumbleBee.Code.Application.Services.Interfaces;
+﻿using Penguin.Code.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent.Models;
 using Microsoft.Azure.Management.Fluent;
@@ -8,7 +8,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.Application.AzureSDKWrappers.Validation
+namespace Penguin.Application.AzureSDKWrappers.Validation
 {
     public class CheckIfAppNameExistsCommandHandler : IRequestHandler<CheckIfAppNameExistsCommand, CheckIfAppNameExistsResponse>
     {

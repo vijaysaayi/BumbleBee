@@ -1,10 +1,10 @@
-﻿using BumbleBee.Code.Application.Services.Interfaces;
+﻿using Penguin.Code.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.Azure.Management.Fluent;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Create.NewPostgresql
+namespace Penguin.Code.Application.AzureSDKWrappers.Create.NewPostgresql
 {
     public class CreateNewPostgresqlAccountCommand : IRequest<Unit>
     {

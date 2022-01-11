@@ -1,5 +1,5 @@
-﻿using BumbleBee.Code.Application.ExtensionMethods;
-using BumbleBee.Code.Application.Services.Interfaces;
+﻿using Penguin.Code.Application.ExtensionMethods;
+using Penguin.Code.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent.Models;
 using Microsoft.Azure.Management.Fluent;
@@ -7,7 +7,7 @@ using Microsoft.Rest.Azure;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Update.ConnectionStrings
+namespace Penguin.Code.Application.AzureSDKWrappers.Update.ConnectionStrings
 {
     public class UpdateConnectionStringsCommandHandler : IRequestHandler<UpdateConnectionStringsCommand, AzureOperationResponse<ConnectionStringDictionaryInner>>
     {

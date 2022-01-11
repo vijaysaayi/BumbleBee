@@ -3,7 +3,7 @@ using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.Management.ContainerRegistry.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Create.NewWebAppForContainers
+namespace Penguin.Code.Application.AzureSDKWrappers.Create.NewWebAppForContainers
 {
     public class CreateNewWebAppForContainersServiceCommand : IRequest<IWebApp>
     {

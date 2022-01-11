@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion
+namespace Penguin.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion
 {
     public class GetRegionNameCommandHandler : IRequestHandler<GetRegionNameCommand, Region>
     {

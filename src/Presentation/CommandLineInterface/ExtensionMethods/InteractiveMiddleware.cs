@@ -1,7 +1,7 @@
-﻿using BumbleBee.CommandLineInterface.Services;
+﻿using Penguin.CommandLineInterface.Services;
 using CommandDotNet;
 
-namespace BumbleBee.CommandLineInterface.ExtensionMethods
+namespace Penguin.CommandLineInterface.ExtensionMethods
 {
     public static class InteractiveMiddleware
     {

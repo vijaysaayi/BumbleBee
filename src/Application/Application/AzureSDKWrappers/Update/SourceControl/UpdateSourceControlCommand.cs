@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent.Models;
 
-namespace BumbleBee.Code.Application.AzureSDKWrappers.Update.SourceControl
+namespace Penguin.Code.Application.AzureSDKWrappers.Update.SourceControl
 {
     public class UpdateSourceControlCommand : IRequest<bool>
     {

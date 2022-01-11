@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace BumbleBee.Code.Application.Services.Interfaces
+namespace Penguin.Code.Application.Services.Interfaces
 {
     public interface IHttpClientService
     {

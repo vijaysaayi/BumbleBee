@@ -1,11 +1,11 @@
-﻿using BumbleBee.Code.Application.Services.Interfaces;
+﻿using Penguin.Code.Application.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace BumbleBee.Code.Application.Services
+namespace Penguin.Code.Application.Services
 {
     public class HttpClientService : IHttpClientService
     {

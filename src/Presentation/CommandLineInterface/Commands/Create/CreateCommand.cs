@@ -1,8 +1,8 @@
-﻿using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan;
-using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewBlessedAppService;
-using BumbleBee.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
-using BumbleBee.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
-using BumbleBee.Code.Application.ExtensionMethods;
+﻿using Penguin.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewBlessedAppService;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
+using Penguin.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
+using Penguin.Code.Application.ExtensionMethods;
 using CommandDotNet;
 using LibGit2Sharp;
 using MediatR;
@@ -15,7 +15,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BumbleBee.CommandLineInterface.Commands.Create
+namespace Penguin.CommandLineInterface.Commands.Create
 {
     [Command(Name = "create",
              Usage = "create [command]",
