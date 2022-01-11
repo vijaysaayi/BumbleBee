@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           tag=${{ steps.tag.outputs.release_tag }}
-          release_name="BumbleBee-$tag-${{ matrix.target }}"
+          release_name="Penguin-$tag-${{ matrix.target }}"
           # Build everything
           dotnet publish src/Presentation/CommandLineInterface/CommandLineInterface.csproj --framework netcoreapp3.1 --runtime "${{ matrix.target }}" -c Release -o "$release_name" -p:PublishSingleFile=true
           # Pack files
@@ -55,6 +55,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.tag.outputs.release_tag }}
-          files: "BumbleBee*"
+          files: "Penguin*"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
