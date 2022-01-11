@@ -26,7 +26,7 @@ namespace Penguin.Code.Application.AzureSDKWrappers.Create.NewWebAppForContainer
                 .WithExistingResourceGroup(request.ResourceGroupName)
                 .WithPrivateRegistryImage(request.ImageAndTagName, request.ServerUrl)
                 .WithCredentials(acrCredentials.Username, acrCredentials.AccessKeys[AccessKeyType.Primary])
-                .WithAppSetting("WEBSITES_PORT", request.Port)
+                .WithAppSetting("WEBSITES_PORT", request.Port.ToString())
                 .CreateAsync();
             AnsiConsoleExtensionMethods.Display($"Successfully deployed App Service");
             return appService;
