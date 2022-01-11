@@ -14,6 +14,7 @@ using Spectre.Console;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Penguin.Code.Application.HelperMethods.GetRandomName;
 
 namespace Penguin.CommandLineInterface.Commands.Create
 {
@@ -43,7 +44,7 @@ namespace Penguin.CommandLineInterface.Commands.Create
 
                 if (string.IsNullOrWhiteSpace(name))
                 {
-                    name = AnsiConsole.Ask<string>("Enter the [green]name[/] of App Service?");
+                    name = await GetRandomName();
                 }
 
                 //var additionalInfo = await _mediator.Send(new GetAdditionalInformationCommand());
@@ -143,6 +144,14 @@ namespace Penguin.CommandLineInterface.Commands.Create
                 ResourceGroupName = _resourceGroupName,
                 AzureRegion = _region,
             }, _cancellationToken);
+        }
+
+        private async Task<string> GetRandomName()
+        {
+            return await _mediator.Send(new GetRandomNameCommand()
+            {
+                Length = 4
+            });
         }
     }
 }

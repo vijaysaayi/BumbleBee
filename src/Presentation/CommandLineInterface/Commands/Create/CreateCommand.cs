@@ -1,14 +1,14 @@
-﻿using Penguin.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan;
-using Penguin.Code.Application.AzureSDKWrappers.Create.NewBlessedAppService;
-using Penguin.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
-using Penguin.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
-using Penguin.Code.Application.ExtensionMethods;
-using CommandDotNet;
+﻿using CommandDotNet;
 using LibGit2Sharp;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
-using RandomNameGeneratorLibrary;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewBlessedAppService;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
+using Penguin.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
+using Penguin.Code.Application.ExtensionMethods;
+using Penguin.Code.Application.HelperMethods.GetRandomName;
 using Spectre.Console;
 using System;
 using System.IO;
@@ -43,7 +43,7 @@ namespace Penguin.CommandLineInterface.Commands.Create
         [DefaultMethod]
         public async Task CreateNewWebApp(CancellationToken cancellationToken)
         {
-            _appName = GetRandomName();
+            _appName = await GetRandomName();
             _region = await _mediator.Send(new GetRegionNameCommand(),
                 cancellationToken);
             _cancellationToken = cancellationToken;
@@ -111,16 +111,12 @@ namespace Penguin.CommandLineInterface.Commands.Create
                              ;
         }
 
-        private string GetRandomName()
+        private async Task<string> GetRandomName()
         {
-            var placeGenerator = new PlaceNameGenerator();
-            var name = placeGenerator.GenerateRandomPlaceName();
-            name = name.ToLowerInvariant()
-                       .Replace(" ", "")
-                       .Replace(".", "")
-                       .Replace("'", "");
-
-            return $"{name}-{StringExtensionMethods.RandomString(4)}";
+            return await _mediator.Send(new GetRandomNameCommand()
+            {
+                Length = 4
+            });
         }
 
         private async Task<IWebApp> CreateNewAppService(IAppServicePlan appServicePlan)

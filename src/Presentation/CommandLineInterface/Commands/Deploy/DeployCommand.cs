@@ -15,6 +15,7 @@ using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Spectre.Console;
 using System.Threading;
 using System.Threading.Tasks;
+using Penguin.Code.Application.HelperMethods.GetRandomName;
 
 namespace Penguin.CommandLineInterface.Commands.Deploy
 {
@@ -48,7 +49,7 @@ namespace Penguin.CommandLineInterface.Commands.Deploy
             _cancellationToken = cancellationToken;
             if (string.IsNullOrWhiteSpace(webappName))
             {
-                webappName = AnsiConsole.Ask<string>("Enter the [green]name[/] of App Service?");
+                webappName = await GetRandomName();
             }
 
             _webappName = $"{webappName}{StringExtensionMethods.RandomString(4) }";
@@ -131,8 +132,6 @@ namespace Penguin.CommandLineInterface.Commands.Deploy
                     }
                 }
             }
-
-            AnsiConsole.WriteLine("creating new ACR");
         }
 
         private async Task<IWebApp> CreateWebAppForContainers(IRegistry registry, IRegistryCredentials acrCredentials, IAppServicePlan appServicePlan)
@@ -199,6 +198,14 @@ namespace Penguin.CommandLineInterface.Commands.Deploy
                 ResourceGroupName = _resourceGroupName,
                 AzureRegion = _region,
             }, _cancellationToken);
+        }
+
+        private async Task<string> GetRandomName()
+        {
+            return await _mediator.Send(new GetRandomNameCommand()
+            {
+                Length = 4
+            });
         }
     }
 }
