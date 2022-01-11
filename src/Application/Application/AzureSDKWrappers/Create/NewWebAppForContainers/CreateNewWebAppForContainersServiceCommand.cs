@@ -20,5 +20,12 @@ namespace Penguin.Code.Application.AzureSDKWrappers.Create.NewWebAppForContainer
         public string ServerUrl { get; set; }
 
         public IRegistryCredentials AcrCredentials { get; set; }
+
+        public int Port { get; set; }
+
+        public CreateNewWebAppForContainersServiceCommand()
+        {
+            Port = 8000;
+        }
     }
 }

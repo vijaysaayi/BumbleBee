@@ -28,6 +28,7 @@ namespace Penguin.CommandLineInterface.Commands.Deploy
         private readonly IMediator _mediator;
         private string _resourceGroupName;
         private string _appServicePlanName;
+        private int _port;
         private Region _region;
         private string _webappName;
         private string _registryName;
@@ -42,7 +43,8 @@ namespace Penguin.CommandLineInterface.Commands.Deploy
         public async Task NewAppService(
             [Option(LongName = "name", ShortName = "n", Description = "Name of the App Service")] string webappName,
             [Option(LongName = "respository", ShortName = "r", Description = "Url of repository")] string repositoryUrl,
-            [Option(LongName = "builder", ShortName = "b", Description = "builder")] string builder,
+            [Option(LongName = "builder", ShortName = "b", Description = "Name of the builder")] string builder,
+            [Option(LongName = "port", ShortName = "p", Description = "The port on which App Service is listening")] int port,
             CancellationToken cancellationToken
         )
         {
@@ -52,11 +54,17 @@ namespace Penguin.CommandLineInterface.Commands.Deploy
                 webappName = await GetRandomName();
             }
 
+            if (port == 0)
+            {
+                port = AnsiConsole.Ask<int>("Enter the [green]port[/] on which the app listening?");
+            }
+
             _webappName = $"{webappName}{StringExtensionMethods.RandomString(4) }";
             _registryName = $"{_webappName}acr";
             AnsiConsole.WriteLine(_registryName);
             _resourceGroupName = $"{_webappName}-rsg";
             _appServicePlanName = $"{_webappName}-asp";
+            _port = port;
             _region = await _mediator.Send(new GetRegionNameCommand(), _cancellationToken);
 
             var isRSGCreateSuccessful = await CreateResourceGroup();
@@ -144,7 +152,8 @@ namespace Penguin.CommandLineInterface.Commands.Deploy
                 ServerUrl = registry.LoginServerUrl,
                 ImageAndTagName = $"{registry.Name}.azurecr.io/{_imageName}",
                 AcrCredentials = acrCredentials,
-                AzureRegion = _region
+                AzureRegion = _region,
+                Port = _port
             }, _cancellationToken);
         }
 
