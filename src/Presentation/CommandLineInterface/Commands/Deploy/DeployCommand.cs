@@ -54,14 +54,8 @@ namespace Penguin.CommandLineInterface.Commands.Deploy
                 webappName = await GetRandomName();
             }
 
-            if (port == 0)
-            {
-                port = AnsiConsole.Ask<int>("Enter the [green]port[/] on which the app listening?");
-            }
-
             _webappName = $"{webappName}{StringExtensionMethods.RandomString(4) }";
-            _registryName = $"{_webappName}acr";
-            AnsiConsole.WriteLine(_registryName);
+            _registryName = $"{_webappName}acr".Replace("-", "");            
             _resourceGroupName = $"{_webappName}-rsg";
             _appServicePlanName = $"{_webappName}-asp";
             _port = port;
@@ -167,6 +161,11 @@ namespace Penguin.CommandLineInterface.Commands.Deploy
             if (string.IsNullOrWhiteSpace(builder))
             {
                 builder = AnsiConsole.Ask<string>("Enter the [green]name[/] of builder :");
+            }
+
+            if (_port == 0)
+            {
+                _port = AnsiConsole.Ask<int>("Enter the [green]port[/] on which the app listening?");
             }
 
             return await _mediator.Send(new ScheduleACRBuildpackTaskCommand()
