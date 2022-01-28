@@ -19,10 +19,5 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Application\Application\Application.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <None Update="buildpacktask.yml">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
 
 </Project>
