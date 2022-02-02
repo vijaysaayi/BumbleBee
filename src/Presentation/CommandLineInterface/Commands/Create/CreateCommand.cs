@@ -41,9 +41,10 @@ namespace Penguin.CommandLineInterface.Commands.Create
         public DjangoApp DjangoApp { get; set; } = null!;
 
         [DefaultMethod]
-        public async Task CreateNewWebApp(CancellationToken cancellationToken)
+        public async Task CreateNewWebApp([Option(LongName = "name", ShortName = "n", Description = "Name of the App Service")] string name, CancellationToken cancellationToken)
         {
-            _appName = await GetRandomName();
+            _appName = string.IsNullOrWhiteSpace(name) ? await GetRandomName() : name ;
+            
             _region = await _mediator.Send(new GetRegionNameCommand(),
                 cancellationToken);
             _cancellationToken = cancellationToken;
