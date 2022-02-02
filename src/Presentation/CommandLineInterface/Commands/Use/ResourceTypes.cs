@@ -2,6 +2,7 @@
 {
     public enum ResourceTypes
     {
+        none,
         sqlserver,
         storage,
         postgresql

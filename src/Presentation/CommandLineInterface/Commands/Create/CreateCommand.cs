@@ -2,16 +2,23 @@
 using LibGit2Sharp;
 using MediatR;
 using Microsoft.Azure.Management.AppService.Fluent;
+using Microsoft.Azure.Management.AppService.Fluent.Models;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Penguin.Code.Application.AzureSDKWrappers.Create.NewAppServicePlan;
 using Penguin.Code.Application.AzureSDKWrappers.Create.NewBlessedAppService;
 using Penguin.Code.Application.AzureSDKWrappers.Create.NewResourceGroup;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewSqlServer;
+using Penguin.Code.Application.AzureSDKWrappers.Create.NewStorageAccount;
 using Penguin.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
+using Penguin.Code.Application.AzureSDKWrappers.Update.ConnectionStrings;
 using Penguin.Code.Application.ExtensionMethods;
 using Penguin.Code.Application.HelperMethods.GetRandomName;
+using Penguin.CommandLineInterface.Commands.Use;
 using Spectre.Console;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -41,7 +48,9 @@ namespace Penguin.CommandLineInterface.Commands.Create
         public DjangoApp DjangoApp { get; set; } = null!;
 
         [DefaultMethod]
-        public async Task CreateNewWebApp([Option(LongName = "name", ShortName = "n", Description = "Name of the App Service")] string name, CancellationToken cancellationToken)
+        public async Task CreateNewWebApp([Option(LongName = "name", ShortName = "n", Description = "Name of the App Service")] string name,
+            [Option(LongName = "with", ShortName = "w", Description = "Name of the App Service")] ResourceTypes resourceType ,
+            CancellationToken cancellationToken)
         {
             _appName = string.IsNullOrWhiteSpace(name) ? await GetRandomName() : name ;
             
@@ -102,6 +111,15 @@ namespace Penguin.CommandLineInterface.Commands.Create
                                                  repository.Network.Remotes.Add("azure", url);
                                              }
 
+                                             if(resourceType != ResourceTypes.none )
+                                             {
+                                                 ctx.Spinner(Spinner.Known.Line);
+                                                 ctx.SpinnerStyle(Style.Parse("green"));
+                                                 await DeployResource(ctx, resourceType);
+                                                 ctx.Refresh();
+                                                 ctx.Status = "Done";
+                                             }
+
                                              AnsiConsoleExtensionMethods.Display($"Added git remote : [green]{publishProfile.GitUrl}[/]");
                                              Console.WriteLine("");
                                              AnsiConsole.MarkupLine($"You can browse to the app using [green]https://{appService.DefaultHostName}[/]");
@@ -151,6 +169,106 @@ namespace Penguin.CommandLineInterface.Commands.Create
                 AzureRegion = _region,
             },
             _cancellationToken);
+        }
+
+        private async Task DeployResource(StatusContext ctx, ResourceTypes resourceType)
+        {
+            var connectionStrings = new ConnectionStringDictionaryInner
+            {
+                Properties = new Dictionary<string, ConnStringValueTypePair>()
+            };
+
+            switch (resourceType)
+            {
+                case ResourceTypes.sqlserver:
+
+                    // Update the status and spinner
+                    ctx.Status("Create a new SQL server and Database");
+
+                    var sqlServerName = _appName;
+                    sqlServerName = sqlServerName.ToLowerInvariant().Trim().Replace("-", "");
+                    string databaseName = $"{sqlServerName}db";
+                    string userName = sqlServerName;
+                    string password = $"{StringExtensionMethods.RandomString(10)}2#";
+
+                    var sqlServer = await _mediator.Send(new CreateNewSqlServerCommand()
+                    {
+                        ResourceGroupName = _resourceGroupName,
+                        AzureRegion = _region,
+                        SqlServerName = sqlServerName,
+                        DatabaseName = databaseName,
+                        UserName = userName,
+                        Password = password
+                    });
+
+                    if (sqlServer != null)
+                    {
+                        ctx.Status("Setting up connection strings needed in App Service");
+                        string key = "Database";
+                        string value = $"Server=tcp:{sqlServerName}.database.windows.net,1433;Initial Catalog={databaseName};Persist Security Info=False;User ID={userName};Password={password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                        if (!connectionStrings.Properties.ContainsKey(key))
+                        {
+                            connectionStrings.Properties.Add(key, new ConnStringValueTypePair(value, ConnectionStringType.SQLAzure));
+                        }
+                        else
+                        {
+                            connectionStrings.Properties[key] = new ConnStringValueTypePair(value, ConnectionStringType.SQLAzure);
+                        }
+
+                        await _mediator.Send(new UpdateConnectionStringsCommand()
+                        {
+                            ConnectionStrings = connectionStrings,
+                            ResourceGroup = _resourceGroupName,
+                            AppServiceName = _appName
+                        });
+                    }
+
+                    break;
+
+                case ResourceTypes.storage:
+
+                    var storage = await _mediator.Send(new CreateNewStorageAccountCommand()
+                    {
+                        StorageName = $"{_appName}storage",
+                        AzureRegion = _region,
+                        ResourceGroup = _resourceGroupName,
+                    });
+
+                    if (storage != null)
+                    {
+                        var keys = await storage.GetKeysAsync();
+                        if (keys != null)
+                        {
+                            var firstKey = keys.FirstOrDefault();
+
+                            var storageConnectionStringKey = "Storage";
+                            var storageConnectionStringValue = $"DefaultEndpointsProtocol=https;AccountName={storage.Name};AccountKey={firstKey.Value};EndpointSuffix=core.windows.net";
+                            if (!connectionStrings.Properties.ContainsKey(storageConnectionStringKey))
+                            {
+                                connectionStrings.Properties.Add(storageConnectionStringKey, new ConnStringValueTypePair(storageConnectionStringValue, ConnectionStringType.SQLAzure));
+                            }
+                            else
+                            {
+                                connectionStrings.Properties[storageConnectionStringKey] = new ConnStringValueTypePair(storageConnectionStringValue, ConnectionStringType.SQLAzure);
+                            }
+
+                            await _mediator.Send(new UpdateConnectionStringsCommand()
+                            {
+                                ConnectionStrings = connectionStrings,
+                                ResourceGroup = _resourceGroupName,
+                                AppServiceName = _appName
+                            });
+                        }
+                    }
+
+                    break;
+
+                case ResourceTypes.postgresql:
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }
