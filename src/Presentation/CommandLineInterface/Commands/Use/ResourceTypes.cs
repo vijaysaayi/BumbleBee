@@ -4,6 +4,6 @@
     {
         sqlserver,
         storage,
-        prostgresql
+        postgresql
     }
 }

@@ -200,7 +200,7 @@ namespace Penguin.CommandLineInterface.Commands.Use
 
                     break;
 
-                case ResourceTypes.prostgresql:
+                case ResourceTypes.postgresql:
                     break;
 
                 default:
