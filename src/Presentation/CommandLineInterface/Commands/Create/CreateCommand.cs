@@ -11,6 +11,7 @@ using Penguin.Code.Application.AzureSDKWrappers.Create.NewSqlServer;
 using Penguin.Code.Application.AzureSDKWrappers.Create.NewStorageAccount;
 using Penguin.Code.Application.AzureSDKWrappers.GetInputs.AzureRegion;
 using Penguin.Code.Application.AzureSDKWrappers.Update.ConnectionStrings;
+using Penguin.Code.Application.AzureSDKWrappers.Update.SourceControl;
 using Penguin.Code.Application.ExtensionMethods;
 using Penguin.Code.Application.HelperMethods.GetRandomName;
 using Penguin.CommandLineInterface.Commands.Use;
@@ -49,8 +50,11 @@ namespace Penguin.CommandLineInterface.Commands.Create
 
         [DefaultMethod]
         public async Task CreateNewWebApp([Option(LongName = "name", ShortName = "n", Description = "Name of the App Service")] string name,
-            [Option(LongName = "with", ShortName = "w", Description = "Name of the App Service")] ResourceTypes resourceType ,
-            CancellationToken cancellationToken)
+            [Option(LongName = "with", ShortName = "w", Description = "Dependent resources to deploy")] ResourceTypes resourceType ,
+            CancellationToken cancellationToken,
+            [Option(LongName = "repo", ShortName = "r", Description = "Url of github repo to deploy")] string repositoryUrl = "",            
+            [Option(LongName = "branch", ShortName = "b", Description = "Github branch")] string gitBranch = "master"
+            )
         {
             _appName = string.IsNullOrWhiteSpace(name) ? await GetRandomName() : name ;
             
@@ -113,9 +117,20 @@ namespace Penguin.CommandLineInterface.Commands.Create
 
                                              if(resourceType != ResourceTypes.none )
                                              {
+                                                 ctx.Status($"Deploying {resourceType}..");
                                                  ctx.Spinner(Spinner.Known.Line);
                                                  ctx.SpinnerStyle(Style.Parse("green"));
                                                  await DeployResource(ctx, resourceType);
+                                                 ctx.Refresh();
+                                                 ctx.Status = "Done";
+                                             }
+
+                                             if(!string.IsNullOrEmpty(repositoryUrl))
+                                             {
+                                                 ctx.Status($"Deploying code from repository..");
+                                                 ctx.Spinner(Spinner.Known.Line);
+                                                 ctx.SpinnerStyle(Style.Parse("green"));
+                                                 await UpdateSourceControl(repositoryUrl, gitBranch);
                                                  ctx.Refresh();
                                                  ctx.Status = "Done";
                                              }
@@ -169,6 +184,21 @@ namespace Penguin.CommandLineInterface.Commands.Create
                 AzureRegion = _region,
             },
             _cancellationToken);
+        }
+
+        private async Task UpdateSourceControl(string repositoryUrl, string branch)
+        {
+            await _mediator.Send(new UpdateSourceControlCommand()
+            {
+                ResourceGroupName = _resourceGroupName,
+                AppServiceName = _appName,
+                SiteSourceControlInner = new SiteSourceControlInner()
+                {
+                    IsManualIntegration = true,
+                    RepoUrl = repositoryUrl,
+                    Branch = branch
+                }
+            });
         }
 
         private async Task DeployResource(StatusContext ctx, ResourceTypes resourceType)
