@@ -22,7 +22,7 @@ It provides simple commands such as **create**, **deploy** and **use** to provid
     
     The created Python app support local git deployment. <br>
     You can paste your code in this folder and use the following commands to deploy code to Azure
-    > ```
+    > ```console
     > git add .
     > git commit -m "Commit Message"
     > git push azure master
