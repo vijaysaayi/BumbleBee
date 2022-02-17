@@ -19,7 +19,7 @@ It provides simple commands such as **create**, **deploy** and **use** to provid
    > | penguin create --with sqlserver | Creates a Python 3.8 App Service with Azure Sql Server |
    > | penguin create --with storage -n "testapp" | Creates a Python 3.8 App Service named "testapp" with Azure Storage |
    > | penguin create --repo "https://github.com/Azure-Samples/python-docs-hello-world" | Creates a Python 3.8 App Service and deploys the code from specfied Github repository |
-    
+   > 
    > The created Python app support local git deployment. <br>
    > You can paste your code in this folder and use the following commands to deploy code to Azure
    > ```console
