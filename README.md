@@ -6,7 +6,7 @@ It provides simple commands such as **create**, **deploy** and **use** to provid
 - An Active Azure Subscription
 
 ## Commands:
-1. Create a new Python App Service:      
+### 1. Create a new Python App Service:      
    > ```console
    > penguin create [-n/--name="Name of the App Service"] [-w/--with="Type of Dependent Resource"] [-r/--repo="Github Repo from which code should be deployed"] [-b/--branch="Name of Github repo branch"] 
    > ```
@@ -20,15 +20,15 @@ It provides simple commands such as **create**, **deploy** and **use** to provid
    > | penguin create --with storage -n "testapp" | Creates a Python 3.8 App Service named "testapp" with Azure Storage |
    > | penguin create --repo "https://github.com/Azure-Samples/python-docs-hello-world" | Creates a Python 3.8 App Service and deploys the code from specfied Github repository |
     
-    The created Python app support local git deployment. <br>
-    You can paste your code in this folder and use the following commands to deploy code to Azure
-    > ```console
-    > git add .
-    > git commit -m "Commit Message"
-    > git push azure master
-    >```
+   > The created Python app support local git deployment. <br>
+   > You can paste your code in this folder and use the following commands to deploy code to Azure
+   > ```console
+   > git add .
+   > git commit -m "Commit Message"
+   > git push azure master
+   >```
     
-2. Deploy WebApp for Containers app using buildpack:      
+### 2. Deploy WebApp for Containers app using buildpack:      
    > ```console
    > penguin deploy [-n/--name="Name of the App Service"] [-b/--builder="Name of the builder"] [-r/--repo="Github Repo from which code should be deployed"] [-p/--port="Port number on which the App is listening"] 
    > ```
@@ -39,7 +39,7 @@ It provides simple commands such as **create**, **deploy** and **use** to provid
    > | ------------- | ------------- |
    > | penguin deloy -r https://github.com/vijaysaayi/flask-example.git -b heroku/buildpacks:20 -p 8000 | Deploys an app with builde:heroku/buildpacks and specified source code  |
    
-3. Add Dependent sources and add necessary connection strings / App Settings:      
+### 3. Add Dependent sources and add necessary connection strings / App Settings:      
    > ```console
    > penguin use [dependent resource type] [-n/--name="Name of the App Service"]
    > ```
