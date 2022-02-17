@@ -19,7 +19,15 @@ It provides simple commands such as **create**, **deploy** and **use** to provid
    > | penguin create --with sqlserver | Creates a Python 3.8 App Service with Azure Sql Server |
    > | penguin create --with storage -n "testapp" | Creates a Python 3.8 App Service named "testapp" with Azure Storage |
    > | penguin create --repo "https://github.com/Azure-Samples/python-docs-hello-world" | Creates a Python 3.8 App Service and deploys the code from specfied Github repository |
-      
+    
+    The created Python app support local git deployment. <br>
+    You can paste your code in this folder and use the following commands to deploy code to Azure
+    > ```
+    > git add .
+    > git commit -m "Commit Message"
+    > git push azure master
+    >```
+    
 2. Deploy WebApp for Containers app using buildpack:      
    > ```console
    > penguin deploy [-n/--name="Name of the App Service"] [-b/--builder="Name of the builder"] [-r/--repo="Github Repo from which code should be deployed"] [-p/--port="Port number on which the App is listening"] 
